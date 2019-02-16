@@ -5,8 +5,11 @@
 
 import argparse
 import csv
+import datetime
 import re
 import urllib2
+
+
 
 url = 'http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv'
 
@@ -29,6 +32,10 @@ def processData(downloadcsvfile):
     ie = ['Internet Explorer', 0]
     safari = ['Safari', 0]
 
+    dateFormat = '%Y-%m-%d %H:%M:%S'
+    times = {i: 0 for i in range(0, 24)}
+
+
     for row in reader:
         lines += 1
         if re.search(
@@ -47,6 +54,11 @@ def processData(downloadcsvfile):
                 "Chrome", row[2]):
             safari[1] += 1
 
+        date = datetime.datetime.strptime(row[1], dateFormat)
+        times[date.hour] = times[date.hour] + 1
+        sorted_times = sorted(times.items())
+        sorted_times.reverse()
+
     browser_totals = [chrome, ie, safari, firefox]
     popular = 0
     browser_name = ''
@@ -62,6 +74,13 @@ def processData(downloadcsvfile):
              'hits.'.format(percentageimagehits, lines, browser_name, popular)
 
     print result
+    print '*' * 10,('Extra Credit'),'*' * 10
+
+
+    for i in sorted_times:
+
+        print'Hour %02d has %s hits.' % (i[0], i[1])
+    print times
 
 test2 = processData(test1)
 
