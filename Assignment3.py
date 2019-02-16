@@ -33,7 +33,7 @@ def processData(downloadcsvfile):
     safari = ['Safari', 0]
 
     dateFormat = '%Y-%m-%d %H:%M:%S'
-    times = {i: 0 for i in range(0, 24)}
+    times = {hour: 0 for hour in range(0, 24)}
 
 
     for row in reader:
@@ -72,15 +72,12 @@ def processData(downloadcsvfile):
     result = 'Image requests account for {}% of todays total {} hits.\n{} was '\
              'the most used web browser accessing the site with {} '\
              'hits.'.format(percentageimagehits, lines, browser_name, popular)
-
     print result
+    
     print '*' * 10,('Extra Credit'),'*' * 10
+    for time in sorted_times:
+        print'Hour %02d has %s hits.' % (time[0], time[1])
 
-
-    for i in sorted_times:
-
-        print'Hour %02d has %s hits.' % (i[0], i[1])
-    print times
 
 test2 = processData(test1)
 
