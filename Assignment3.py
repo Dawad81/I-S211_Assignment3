@@ -9,7 +9,7 @@ import datetime
 import re
 import urllib2
 
-url = 'http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv'
+#url = 'http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv'
 
 
 def downloadData(url=str):
@@ -34,11 +34,75 @@ def downloadData(url=str):
     downloadcsvfile = urllib2.urlopen(url)
     return downloadcsvfile
 
-test1 = downloadData("http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv")
+#test1 = downloadData("http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv")
 
 
 def processData(downloadcsvfile):
-    """Docstring"""
+    """This function takes a variable that has an assigned file object to it,
+       then parses the data for particular values.
+
+    Args:
+
+        downloadcsvfile (file object): A file downloaded from a URL by the
+        downloadData() function.
+
+    Returns:
+
+        3 str:
+        
+            str 1: returns a string that states the results of the parsed file
+            objectdownloadcsvfile. It reveals the percentage of hits on a site
+            that were for image request, howmany hits in total the site recived,
+            and what was the most popular web browser used to acces the site, and
+            how many times it was used.
+            The results of local variables: percentageimagehits
+                                            lines
+                                            browser_name
+                                            popular
+                                            
+            Formated in this order, into the string:
+                "Image requests account for {}% of todays total {} hits. {} was
+                the most used web browser accessing the site with {} hits."
+
+            str 2: a string that states:
+                ********** Extra Credit **********
+
+            str 3: Additionaly, several lines of strings of hits per hour,
+            sorted by number of hits, from high to low, are printed to screen.
+
+    Example:
+
+        >>> test1 = downloadData(
+        "http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv")
+        >>> processData(test1)
+        Image requests account for 78.77% of todays total 10000 hits.
+        Chrome was the most used web browser accessing the site with 4042 hits.
+        ********** Extra Credit **********
+        Hour 04 has 1813 hits.
+        Hour 01 has 1808 hits.
+        Hour 03 has 1797 hits.
+        Hour 02 has 1795 hits.
+        Hour 00 has 1793 hits.
+        Hour 05 has 994 hits.
+        Hour 23 has 0 hits.
+        Hour 22 has 0 hits.
+        Hour 21 has 0 hits.
+        Hour 20 has 0 hits.
+        Hour 19 has 0 hits.
+        Hour 18 has 0 hits.
+        Hour 17 has 0 hits.
+        Hour 16 has 0 hits.
+        Hour 15 has 0 hits.
+        Hour 14 has 0 hits.
+        Hour 13 has 0 hits.
+        Hour 12 has 0 hits.
+        Hour 11 has 0 hits.
+        Hour 10 has 0 hits.
+        Hour 09 has 0 hits.
+        Hour 08 has 0 hits.
+        Hour 07 has 0 hits.
+        Hour 06 has 0 hits.
+    """
     reader = csv.reader(downloadcsvfile)
     lines = 0
     imagehits = 0
@@ -50,7 +114,6 @@ def processData(downloadcsvfile):
 
     dateformat = '%Y-%m-%d %H:%M:%S'
     dict_times = {hour: 0 for hour in range(0, 24)}
-
 
     for row in reader:
         lines += 1
@@ -90,11 +153,11 @@ def processData(downloadcsvfile):
              'hits.'.format(percentageimagehits, lines, browser_name, popular)
     print result
 
-    print '*' * 10, ('Extra Credit'), '*' * 10
+    print '*' * 10, 'Extra Credit', '*' * 10
     for time in sorted_times:
         print'Hour %02d has %s hits.' % (time[0], time[1])
 
-test2 = processData(test1)
+#test2 = processData(test1)
 
 
 def main():
@@ -106,7 +169,6 @@ def main():
 
         If an impropper --url is input, an error message is raised and the
         program exits.
-
 
     Exsample:
 
