@@ -9,8 +9,6 @@ import datetime
 import re
 import urllib2
 
-#url = 'http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv'
-
 
 def downloadData(url=str):
     """This function opens an inputed url and return the result to the caller.
@@ -34,8 +32,6 @@ def downloadData(url=str):
     downloadcsvfile = urllib2.urlopen(url)
     return downloadcsvfile
 
-#test1 = downloadData("http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv")
-
 
 def processData(downloadcsvfile):
     """This function takes a variable that has an assigned file object to it,
@@ -49,7 +45,7 @@ def processData(downloadcsvfile):
     Returns:
 
         3 str:
-        
+
             str 1: returns a string that states the results of the parsed file
             objectdownloadcsvfile. It reveals the percentage of hits on a site
             that were for image request, howmany hits in total the site recived,
@@ -59,7 +55,7 @@ def processData(downloadcsvfile):
                                             lines
                                             browser_name
                                             popular
-                                            
+
             Formated in this order, into the string:
                 "Image requests account for {}% of todays total {} hits. {} was
                 the most used web browser accessing the site with {} hits."
@@ -156,8 +152,6 @@ def processData(downloadcsvfile):
     print '*' * 10, 'Extra Credit', '*' * 10
     for time in sorted_times:
         print'Hour %02d has %s hits.' % (time[0], time[1])
-
-#test2 = processData(test1)
 
 
 def main():
